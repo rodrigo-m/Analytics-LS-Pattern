@@ -2,65 +2,89 @@
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "administratorLogin": {
+            "type": "string"
+        },
+        "administratorLoginPassword": {
+            "type": "securestring"
+        },
         "databaseName": {
             "type": "string"
         },
         "skuName": {
             "type": "string"
         },
+        "location": {
+            "type": "string"
+        },
         "serverName": {
             "type": "string"
         },
-        "storageKeyType": {
-            "type": "string"
-        },
-        "storageKey": {
-            "type": "securestring"
-        },
-        "storageUri": {
-            "type": "string"
-        },
-        "location": {
+        "version": {
             "type": "string"
         },
         "collation": {
             "type": "string"
         },
+        "allowAzureIps": {
+            "type": "bool",
+            "defaultValue": true
+        },
         "databaseTags": {
+            "type": "object",
+            "defaultValue": {}
+        },
+        "serverTags": {
             "type": "object",
             "defaultValue": {}
         }
     },
     "resources": [
         {
-            "name": "[concat(parameters('serverName'), '/', parameters('databaseName'))]",
-            "type": "Microsoft.Sql/servers/databases",
-            "apiVersion": "2017-10-01-preview",
+            "apiVersion": "2014-04-01-preview",
             "location": "[parameters('location')]",
-            "tags": "[parameters('databaseTags')]",
-            "sku": {
-                "name": "[parameters('skuName')]",
-                "tier": "DataWarehouse"
-            },
+            "tags": "[parameters('serverTags')]",
+            "name": "[parameters('serverName')]",
             "properties": {
-                "collation": "[parameters('collation')]"
+                "administratorLogin": "[parameters('administratorLogin')]",
+                "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+                "version": "[parameters('version')]"
             },
             "resources": [
                 {
-                    "name": "PolybaseImport",
-                    "type": "extensions",
+                    "name": "[parameters('databaseName')]",
+                    "type": "databases",
+                    "apiVersion": "2017-10-01-preview",
+                    "location": "[parameters('location')]",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
+                    ],
+                    "tags": "[parameters('databaseTags')]",
+                    "sku": {
+                        "name": "[parameters('skuName')]",
+                        "tier": "DataWarehouse"
+                    },
+                    "properties": {
+                        "collation": "[parameters('collation')]"
+                    }
+                },
+                {
+                    "condition": "[parameters('allowAzureIps')]",
                     "apiVersion": "2014-04-01-preview",
                     "dependsOn": [
-                        "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/databases/', parameters('databaseName'))]"
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
                     ],
+                    "location": "[parameters('location')]",
+                    "name": "AllowAllWindowsAzureIps",
                     "properties": {
-                        "storageKeyType": "[parameters('storageKeyType')]",
-                        "storageKey": "[parameters('storageKey')]",
-                        "storageUri": "[parameters('storageUri')]",
-                        "operationMode": "PolybaseImport"
-                    }
+                        "endIpAddress": "0.0.0.0",
+                        "startIpAddress": "0.0.0.0"
+                    },
+                    "type": "firewallrules"
                 }
-            ]
+            ],
+            "type": "Microsoft.Sql/servers"
         }
-    ]
+    ],
+    "variables": {}
 }

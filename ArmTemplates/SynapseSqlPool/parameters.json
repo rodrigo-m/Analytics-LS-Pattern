@@ -2,31 +2,37 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "administratorLogin": {
+            "value": "sql.admin"
+        },
+        "administratorLoginPassword": {
+            "value": null
+        },
         "collation": {
             "value": "SQL_Latin1_General_CP1_CI_AS"
         },
         "databaseName": {
-            "value": "syn-1256-dev"
-        },
-        "skuName": {
-            "value": "DW100c"
+            "value": "AdventureWorksDW"
         },
         "location": {
             "value": "eastus"
         },
+        "skuName": {
+            "value": "DW100c"
+        },
         "serverName": {
-            "value": "sql-a1"
+            "value": "sql-a-int"
         },
-        "storageKey": {
-            "value": null
+        "version": {
+            "value": "12.0"
         },
-        "storageKeyType": {
-            "value": "SharedAccessKey"
-        },
-        "storageUri": {
-            "value": "https://sqldwsamplesdefault.blob.core.windows.net/adventureworksdw/AdventureWorksDWPolybaseImport/Manifest.xml"
+        "allowAzureIps": {
+            "value": false
         },
         "databaseTags": {
+            "value": {}
+        },
+        "serverTags": {
             "value": {}
         }
     }

@@ -6,7 +6,7 @@
             "value": "SQL_Latin1_General_CP1_CI_AS"
         },
         "databaseName": {
-            "value": "AdverntureWorksLT"
+            "value": "AdventureWorksLT"
         },
         "tier": {
             "value": "Basic"
@@ -17,14 +17,14 @@
         "maxSizeBytes": {
             "value": 2147483648
         },
-        "sampleName": {
-            "value": "AdventureWorksLT"
+        "serverName": {
+            "value": "sql-1256-dev"
         },
         "serverLocation": {
             "value": "eastus"
         },
-        "serverName": {
-            "value": "sql-dev-01"
+        "sampleName": {
+            "value": ""
         },
         "zoneRedundant": {
             "value": false
@@ -37,6 +37,12 @@
         },
         "numberOfReplicas": {
             "value": 0
+        },
+        "minCapacity": {
+            "value": ""
+        },
+        "autoPauseDelay": {
+            "value": ""
         },
         "databaseTags": {
             "value": {}
@@ -51,7 +57,7 @@
             "value": false
         },
         "privateEndpointNestedTemplateId": {
-            "value": "pe-95ae3ed3-7ecc-4165-8847-232822dc500b"
+            "value": "pe-18f8f97f-838c-476d-929d-0915a1b0301d"
         },
         "privateEndpointSubscriptionId": {
             "value": ""
@@ -90,7 +96,7 @@
             "value": true
         },
         "privateEndpointDnsRecordUniqueId": {
-            "value": "95ae3ed3-7ecc-4165-8847-232822dc500c"
+            "value": "18f8f97f-838c-476d-929d-0915a1b0301e"
         },
         "privateEndpointTemplateLink": {
             "value": "https://sqlazureextension.hosting.portal.azure.net/sqlazureextension/Content/2.1.0116619/DeploymentTemplates/PrivateEndpoint.json"
